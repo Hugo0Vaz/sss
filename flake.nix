@@ -24,7 +24,8 @@
             pythonPackages.black
             pythonPackages.pytest
             pythonPackages.mypy
-            
+            pkgs.pyright
+
             # Add other system dependencies
             pkgs.just
             # pkgs.postgresql
