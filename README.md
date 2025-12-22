@@ -1,2 +1,2 @@
-# sss
-SSH Sync Service
+# ssss
+Simple SSH Sync Service
