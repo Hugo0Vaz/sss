@@ -1,26 +1,49 @@
 {
-  description = "Python project with uv2nix";
+  description = "Python development environment";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    uv2nix.url = "github:astraiosystems/uv2nix";
   };
 
-  outputs = { self, nixpkgs, flake-utils, uv2nix }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-      in {
+        python = pkgs.python311;
+        pythonPackages = python.pkgs;
+      in
+      {
         devShells.default = pkgs.mkShell {
           buildInputs = [
-            (uv2nix.lib.${system}.mkPython {
-              pyproject = ./pyproject.toml;
-              lockfile = ./uv.lock;
-              withDevDependencies = true;
-            })
-            pkgs.uv
+            python
+            pythonPackages.pip
+            pythonPackages.virtualenv
+            
+            # Development tools
+            pythonPackages.black
+            pythonPackages.pytest
+            pythonPackages.mypy
+            
+            # Add other system dependencies
+            pkgs.just
+            # pkgs.postgresql
+            # pkgs.redis
           ];
+
+          shellHook = ''
+            # Create and activate virtual environment
+            if [ ! -d .venv ]; then
+              virtualenv .venv
+            fi
+            source .venv/bin/activate && echo "Virtualenv Activated"
+            
+            # Install dependencies if requirements.txt exists
+            if [ -f requirements.txt ]; then
+              pip install -r requirements.txt && echo "Installed requirements.txt"
+            fi
+            echo "🐍 $(python --version)"
+          '';
         };
       }
     );
