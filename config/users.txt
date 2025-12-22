@@ -1,0 +1,7 @@
+#user: @team, @team
+
+hugo.martins: @admins, @devs
+vitor.lima: @admins
+arthur.brabosa: @admins
+igor.quaresma: @devs
+rafael.melo: @devs

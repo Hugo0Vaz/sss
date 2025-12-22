@@ -1,0 +1,4 @@
+#server: user; @team
+
+erp: @devs, @admins
+intranet: @devs, @devs

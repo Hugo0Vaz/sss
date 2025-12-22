@@ -1,0 +1,9 @@
+Host erp
+    Hostname erp.kot.com.br
+    User {{user}}
+    IdentityFile {{private_key}}
+
+Host intranet
+    Hostname intranet.intra.kot.com.br
+    User {{user}}
+    IdentityFile {{private_key}}
