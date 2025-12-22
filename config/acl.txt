@@ -1,4 +1,4 @@
 #server: user; @team
 
-erp: @devs, @admins
+erp: @devs, @admins, gabriel.jovenal
 intranet: @devs, @devs
